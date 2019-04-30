@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+</head>
+<body>
+           <h1 id='title'></h1>
+           <h2 id='subtitle'></h2>
+            <script type="text/javascript">
+
+            var title = 'Математический тест';
+            var subtitle = 'Отметьте правильные ответы';
+            document.getElementById('title').innerHTML=title;
+            document.getElementById('subtitle').innerHTML=subtitle;
+
+            
+            var questions=[
+            {
+                text: "5+11:",
+                answers: ["16","14","15","6"],
+                correctAnswer: 0 
+            },
+            {
+                text: "5-7:",
+                answers: ["2","-2","9","5"],
+                correctAnswer: 1
+            },
+            {
+                text: "0/10:",
+                answers: ["0","10","1","0,10"],
+                correctAnswer: 0
+            },
+            {
+                 text: "3*4:",
+                 answers: ["16","11","15","12"],
+                 correctAnswer: 4
+            },
+            {
+               text: "1.5+1.5:",
+               answers: ["3","1,25","1,10","1,5"],
+               correctAnswer: 0
+            },
+            ];
+
+            var yourAns = new Array;
+            var score = 0;
+
+            function Count(question, answer) {yourAns[question]=answer;}
+
+            function Score(){
+                var answerText = "Результаты:\n";
+                    for(var i = 0; i < yourAns.length; ++i){
+	            var num = i+1;
+	            answerText=answerText+"\n    Вопрос №"+ num +"";
+	                if(yourAns[i]!=questions[i].correctAnswer){
+	                answerText=answerText+"\n    Правильный ответ: " +
+		            questions[i].answers[questions[i].correctAnswer] + "\n";
+	                }
+                    else{
+	                answerText=answerText+": Верно! \n";
+	                ++score;
+	                }
+            }
+
+            answerText=answerText+"\nВсего правильных ответов: "+score+"\n";
+            alert(answerText);
+            yourAns = [];
+            score = 0;
+            clearForm("quiz");
+            }
+            function clearForm(name) {
+                var f = document.forms[name];
+                    for(var i = 0; i < f.elements.length; ++i) {
+	                    if(f.elements[i].checked)
+		                f.elements[i].checked = false;
+                    }   
+            }
+            </script>
+  
+
+ 
+
+        <form name="quiz">
+        <ol>
+        <script>
+        for(var q=0; q<questions.length; ++q) {
+         var question = questions[q];
+            var countquiz = 1 + q;
+
+        document.writeln('<li><span class="quest">' + question.text + '</span><br/>');
+            for(var i in question.answers) {
+	            document.writeln('<input type=radio name="q' + countquiz + '" value="' + i +
+	'" onClick="Count(' + q + ', this.value)">' + question.answers[i] + '<br/>');
+            }
+}
+</script>
+</ol>
+<input type="button" onClick="Score()" value="Проверить результаты" />
+
+</form>               
+            
+
+        </body>
+</html>
